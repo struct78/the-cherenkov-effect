@@ -7,7 +7,7 @@ Note note;
 MidiBus bus;
 Serial input;
 SerialManager serialManager;
-String arduinoAddress = "/dev/tty.usbmodem144301";
+String arduinoAddress = "/dev/tty.usbmodem141301";
 
 void setup() {
   printArray(Serial.list());

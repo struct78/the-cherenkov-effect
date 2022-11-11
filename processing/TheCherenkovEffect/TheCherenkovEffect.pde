@@ -34,6 +34,16 @@ void draw() {
     float velocity = map(msph, 0, 1, 20, 100);
     note = new Note(bus, 0, int(velocity), int(scale), bucketLevel);
     notes.add(note);
+    
+    if (frameCount % 2 == 0) {
+      note = new Note(bus, 1, int(velocity), int(scale), bucketLevel);
+      notes.add(note);
+    }
+    
+    if (frameCount % 3 == 0) {
+      note = new Note(bus, 2, int(velocity), int(scale), bucketLevel);
+      notes.add(note);
+    }
   }
   
   playNotes();

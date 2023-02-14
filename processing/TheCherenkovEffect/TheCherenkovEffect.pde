@@ -26,24 +26,15 @@ void draw() {
     }
     
     String[] parts = in.split(",");
-    String[] usvHr = parts[0].split(":");
-    String[] bucket = parts[1].split(":");
+    String[] pin = parts[0].split(":");
+    String[] usvHr = parts[1].split(":");
+    String[] bucket = parts[2].split(":");
     int bucketLevel = int(bucket[1]);
     float msph = float(usvHr[1]);
-    float scale = map(msph, 0, 1, 30, 42);
+    float scale = map(msph, 0, 1, 20, 38);
     float velocity = map(msph, 0, 1, 20, 100);
-    note = new Note(bus, 0, int(velocity), int(scale), bucketLevel);
+    note = new Note(bus, int(pin[1]), int(velocity), int(scale), bucketLevel);
     notes.add(note);
-    
-    if (frameCount % 2 == 0) {
-      note = new Note(bus, 1, int(velocity), int(scale), bucketLevel);
-      notes.add(note);
-    }
-    
-    if (frameCount % 3 == 0) {
-      note = new Note(bus, 2, int(velocity), int(scale), bucketLevel);
-      notes.add(note);
-    }
   }
   
   playNotes();

@@ -7,13 +7,19 @@ Note note;
 MidiBus bus;
 Serial input;
 SerialManager serialManager;
-String arduinoAddress = "/dev/tty.usbmodem141301";
+Sphere sphere;
+String arduinoAddress = "/dev/tty.usbmodem144301";
+
+void settings() {
+  size(1024, 768, P3D);
+}
 
 void setup() {
   printArray(Serial.list());
   setupMidi();
   setupSerial();
   setupShutdownHook();
+  setupSphere();
 }
 
 void draw() {
@@ -31,12 +37,13 @@ void draw() {
     String[] bucket = parts[2].split(":");
     int bucketLevel = int(bucket[1]);
     float msph = float(usvHr[1]);
-    float scale = map(msph, 0, 1, 20, 38);
+    float scale = map(msph, 0, 1, 10, 40);
     float velocity = map(msph, 0, 1, 20, 100);
     note = new Note(bus, int(pin[1]), int(velocity), int(scale), bucketLevel);
     notes.add(note);
   }
   
+  sphere.draw();
   playNotes();
 }
 
@@ -51,6 +58,11 @@ void playNotes() {
       note.on();
     }
   }
+}
+
+void setupSphere() {
+  sphere = new Sphere(500, 500);
+  sphere.seed();
 }
 
 void setupMidi() {

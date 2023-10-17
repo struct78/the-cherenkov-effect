@@ -7,7 +7,7 @@ Note note;
 MidiBus bus;
 Serial input;
 SerialManager serialManager;
-String arduinoAddress = "/dev/tty.usbmodem141301";
+String arduinoAddress = "/dev/tty.usbmodem14401";
 
 void setup() {
   printArray(Serial.list());
@@ -26,13 +26,15 @@ void draw() {
     }
     
     String[] parts = in.split(",");
-    String[] usvHr = parts[0].split(":");
-    String[] bucket = parts[1].split(":");
+    String[] pinInfo = parts[0].split(":");
+    String[] usvHr = parts[1].split(":");
+    String[] bucket = parts[2].split(":");
     int bucketLevel = int(bucket[1]);
+    int channel = int(pinInfo[1]);
     float msph = float(usvHr[1]);
     float scale = map(msph, 0, 1, 30, 42);
     float velocity = map(msph, 0, 1, 20, 100);
-    note = new Note(bus, 0, int(velocity), int(scale), bucketLevel);
+    note = new Note(bus, channel, int(velocity), int(scale), bucketLevel);
     notes.add(note);
   }
   

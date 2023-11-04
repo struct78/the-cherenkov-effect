@@ -15,4 +15,4 @@ It is an open source project built with Processing, Arduino, TouchDesigner, and 
 | Calder Hall 2 | 3:18 | calder-hall-2 |
 | Trinity | 4:20 | trinity |
 | Beloyarsk 1 | 5:12 | beloyarsk-1 |
-| Novaya Zemlya | 6:12 | novaya-zemlya |
+| Novaya Zemlya | 6:28 | novaya-zemlya |

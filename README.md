@@ -13,5 +13,5 @@ It is an open source project built with Processing, Arduino, TouchDesigner, and 
 | APS 1 Obninsk | 4:00 | obninsk |
 | Calder Hall 1 | 7:22 | calder-hall-1 |
 | Calder Hall 2 | 3:18 | calder-hall-2 |
-| Trinity | 5:20 | trinity |
+| Trinity | 4:20 | trinity |
 | Beloyarsk 1 | 5:12 | beloyarsk-1 |

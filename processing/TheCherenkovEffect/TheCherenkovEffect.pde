@@ -21,7 +21,7 @@ Serial input;
 SerialManager serialManager;
 
 void settings() {
-  size(800, 600);
+  size(450, 180);
 }
 
 void setup() {
@@ -64,7 +64,9 @@ void draw() {
 
 void setupControls() {
   cp5 = new ControlP5(this);
-  usbList = cp5.addScrollableList("channels", 20, 20, 200, 200).setBarHeight(20).setType(ScrollableList.DROPDOWN).setLabel("Select USB Port").close();
+  cp5.addLabel("SELECT ARDUINO DEVICE", 17, 20).setColor(0x000000);
+  
+  usbList = cp5.addScrollableList("channels", 20, 40, 200, 200).setBarHeight(20).setType(ScrollableList.DROPDOWN).setLabel("Devices").close();
   
   String[] options = Serial.list();
   for (int x = 0 ; x < options.length ; x++) {
@@ -89,10 +91,12 @@ void setupControls() {
         usbList.close();
       }
     }
-  });;
+  });
+  
+  cp5.addLabel("MAP MIDI CONTROL CHANNEL EVENTS", 227, 20).setColor(0x000000);
   
   for (int x = 0 ; x < customMidiMapChannels; x++) {
-    cp5.addButton("customMidiMapChannel_" + x, x, 20, 60 + (x*20), 200, 20).setLabel("MIDI Map " + x).onClick(new CallbackListener() {
+    cp5.addButton("customMidiMapChannel_" + x, x, 230, 40 + (x*20+(x*4)), 200, 20).setLabel("MIDI Map " + x).onClick(new CallbackListener() {
         public void controlEvent(CallbackEvent theEvent) {
           int number = int(theEvent.getController().getValue());
           ControllerChange controllerChange = new ControllerChange(bus, controllerChangeChannel, number, 0);
@@ -122,7 +126,7 @@ void playNotes() {
 void setupMidi() {
   notes = new ArrayList<Note>();
   controllerChanges = new ArrayList<ControllerChange>();
-  bus = new MidiBus( this, -1, "CherenkovEffect" );
+  bus = new MidiBus( this, -1, "TheCherenkovEffect" );
   
   for (int x = 0 ; x < customMidiMapChannels ; x++) {
     ControllerChange controllerChange = new ControllerChange(bus, controllerChangeChannel, x, 0);

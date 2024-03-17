@@ -4,7 +4,7 @@ import themidibus.*;
 import controlP5.*;
 
 int scaleMin = 30;
-int scaleMax = 34;
+int scaleMax = 40;
 int velocityMin = 100;
 int velocityMax = 127;
 int controllerChangeChannel = 9;
@@ -40,12 +40,16 @@ void draw() {
   String in = serialManager.listen();
   
   if (in != null) {
-    println(in);
     if (in.indexOf(":") == -1 || in.indexOf(",") == -1) {
       return;
     }
     
     String[] parts = in.split(",");
+    
+    if (parts.length != 3) {
+      return;
+    }
+    
     String[] pinInfo = parts[0].split(":");
     String[] usvHr = parts[1].split(":");
     String[] bucket = parts[2].split(":");

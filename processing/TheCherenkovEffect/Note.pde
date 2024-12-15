@@ -32,5 +32,6 @@ public class Note {
   
   void off() {
     bus.sendNoteOff( this.channel, this.pitch, this.velocity );
+    this.isPlaying = false;
   }
 }

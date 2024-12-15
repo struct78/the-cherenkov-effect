@@ -1,18 +1,27 @@
 import javax.sound.midi.*;
+import java.util.HashMap;
 import processing.serial.*;
 import themidibus.*;
 import controlP5.*;
 
-int scaleMin = 30;
-int scaleMax = 34;
-int velocityMin = 100;
-int velocityMax = 127;
+enum PlayMode {
+  TOGGLE,
+  CUMULATIVE,
+}
+
+PlayMode playMode = PlayMode.TOGGLE;
+int scaleMin = 0;
+int scaleMax = 0;
+int velocityMin = 0;
+int velocityMax = 0;
 int controllerChangeChannel = 9;
 int customMidiMapChannels = 5;
 
 ControlP5 cp5;
 ArrayList<Note> notes;
 ArrayList<ControllerChange> controllerChanges;
+HashMap<String, Note> noteMap = new HashMap<String, Note>();
+
 ScrollableList usbList;
 Note note;
 ControllerChange controllers;
@@ -21,7 +30,7 @@ Serial input;
 SerialManager serialManager;
 
 void settings() {
-  size(450, 180);
+  size(1250, 180);
 }
 
 void setup() {
@@ -40,7 +49,6 @@ void draw() {
   String in = serialManager.listen();
   
   if (in != null) {
-    println(in);
     if (in.indexOf(":") == -1 || in.indexOf(",") == -1) {
       return;
     }
@@ -56,7 +64,23 @@ void draw() {
     float velocity = map(msph, 0, 1, velocityMin, velocityMax);
     
     note = new Note(bus, channel, int(velocity), int(scale), bucketLevel);
-    notes.add(note);
+    
+    if (playMode == PlayMode.CUMULATIVE) {
+      notes.add(note);
+    }
+    
+    if (playMode == PlayMode.TOGGLE) {
+      String key = pinInfo[1];
+      
+      if (noteMap.containsKey(key)) {
+        Note currentNote = noteMap.get(key);
+        currentNote.off();
+        noteMap.remove(key);
+      } else {
+        note.on();
+        noteMap.put(key, note);
+      }
+    }
   }
   
   playNotes();
@@ -97,27 +121,51 @@ void setupControls() {
   
   for (int x = 0 ; x < customMidiMapChannels; x++) {
     cp5.addButton("customMidiMapChannel_" + x, x, 230, 40 + (x*20+(x*4)), 200, 20).setLabel("MIDI Map " + x).onClick(new CallbackListener() {
-        public void controlEvent(CallbackEvent theEvent) {
-          int number = int(theEvent.getController().getValue());
+        public void controlEvent(CallbackEvent e) {
+          int number = int(e.getController().getValue());
           ControllerChange controllerChange = new ControllerChange(bus, controllerChangeChannel, number, 0);
           controllerChange.send();
         }
     });
   } //<>//
+  
+  cp5.addLabel("VELOCITY MIN/MAX", 496, 20).setColor(0x000000);
+  cp5.addRange("velocity").setPosition(500, 40).setRange(1, 127).setRangeValues(50, 100).onChange(new CallbackListener() {
+    public void controlEvent(CallbackEvent e) {
+      velocityMin = int(e.getController().getArrayValue(0));
+      velocityMax = int(e.getController().getArrayValue(1));
+    }
+  });
+  
+  
+  cp5.addLabel("SCALE MIN/MAX", 496, 65).setColor(0x000000);
+  
+  cp5.addRange("scale").setLabel("Scale Min / Max").setPosition(500, 85).setRange(1, 127).setRangeValues(50, 100).onChange(new CallbackListener() {
+    public void controlEvent(CallbackEvent e) {
+      scaleMin = int(e.getController().getArrayValue(0));
+      scaleMax = int(e.getController().getArrayValue(1));
+    }
+  });
 }
 
 void playNotes() {
+  if (playMode != PlayMode.CUMULATIVE) {
+    return;
+  }
+  
   for (int i = notes.size() - 1; i >= 0; i--) {
     Note note = notes.get(i);
     if (note.hasStarted() && !note.isRunning()) {
       note.off();
       notes.remove(i);
     }
+    
     if (!note.hasStarted()) {
-      for (int x = 0; x < controllerChanges.size(); x++) {
-        ControllerChange controllerChange = controllerChanges.get(x);
-        controllerChange.send(int(random(127)));
-      }
+      // TODO - Fix this so it only sends it if they are set
+      //for (int x = 0; x < controllerChanges.size(); x++) {
+      //  ControllerChange controllerChange = controllerChanges.get(x);
+      //  controllerChange.send(int(random(127)));
+      //}
       note.on();
     }
   }

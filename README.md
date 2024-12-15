@@ -16,24 +16,25 @@ Watch this video to see how it all works
 
 ## Item list
 
-| Item | Price |
--------|---------
-[Arduino Giga R1 WiFi](https://core-electronics.com.au/arduino-giga-r1-wifi.html) | AUD$129.95
-[Seeed Grove Mega Shield](https://au.rs-online.com/web/p/shields-for-arduino/1845097) | AUD$18.44
-[5x Geiger Counter Sensors](https://www.amazon.com.au/Assembled-Radiation-Detector-Nuclear-Experimental/dp/B0CDWLLG2Y) | AUD$37.99 x 5
-[5x 30cm plug-to-plug servo leads](https://www.jaycar.com.au/30cm-plug-to-plug-servo-leads-pack-of-5/p/WC6040?pos=1&queryId=02e7a53c6f504114a1607242009d424b&sort=relevance&searchText=servo+lead) | AUD$5.95 x 5
-[1x radioactive disc](https://www.haines.com.au/radioactive-sources-disc.html) | AUD$320.65
-----------------
+| Item                                                                                                                                                                                               | Price         |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| [Arduino Giga R1 WiFi](https://core-electronics.com.au/arduino-giga-r1-wifi.html)                                                                                                                  | AUD$129.95    |
+| [Seeed Grove Mega Shield](https://au.rs-online.com/web/p/shields-for-arduino/1845097)                                                                                                              | AUD$18.44     |
+| [5x Geiger Counter Sensors](https://www.amazon.com.au/Assembled-Radiation-Detector-Nuclear-Experimental/dp/B0CDWLLG2Y)                                                                             | AUD$37.99 x 5 |
+| [5x 30cm plug-to-plug servo leads](https://www.jaycar.com.au/30cm-plug-to-plug-servo-leads-pack-of-5/p/WC6040?pos=1&queryId=02e7a53c6f504114a1607242009d424b&sort=relevance&searchText=servo+lead) | AUD$5.95 x 5  |
+| [1x radioactive disc](https://www.haines.com.au/radioactive-sources-disc.html)                                                                                                                     | AUD$320.65    |
 
+---
 
 ## Track List
 
-| Track Name | Length | Branch Name |
-|----|-----|----|
-| APS 1 Obninsk | 4:00 | obninsk |
-| Calder Hall 1 | 7:22 | calder-hall-1 |
-| Calder Hall 2 | 3:18 | calder-hall-2 |
-| Trinity | 4:20 | trinity |
-| Beloyarsk 1 | 5:12 | beloyarsk-1 |
-| Novaya Zemlya | 6:28 | novaya-zemlya |
-| BR-3 | 4:36 | br-3 |
+| Track Name    | Length | Branch Name   |
+| ------------- | ------ | ------------- |
+| APS 1 Obninsk | 4:00   | obninsk       |
+| Calder Hall 1 | 7:22   | calder-hall-1 |
+| Calder Hall 2 | 3:18   | calder-hall-2 |
+| Trinity       | 4:20   | trinity       |
+| Beloyarsk 1   | 5:12   | beloyarsk-1   |
+| Novaya Zemlya | 6:28   | novaya-zemlya |
+| BR-3          | 4:36   | br-3          |
+| AVR Juelich   | 5:14   | avr-juelich   |

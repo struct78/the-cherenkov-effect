@@ -8,11 +8,13 @@ It is an open source project built with Processing, Arduino, TouchDesigner, and 
 
 ## Track List
 
-| Track Name | Length | Branch Name |
-|----|-----|----|
-| APS 1 Obninsk | 4:00 | obninsk |
-| Calder Hall 1 | 7:22 | calder-hall-1 |
-| Calder Hall 2 | 3:18 | calder-hall-2 |
-| Trinity | 4:20 | trinity |
-| Beloyarsk 1 | 5:12 | beloyarsk-1 |
-| Novaya Zemlya | 6:28 | novaya-zemlya |
+| Track Name    | Length | Branch Name   |
+| ------------- | ------ | ------------- |
+| APS 1 Obninsk | 4:00   | obninsk       |
+| Calder Hall 1 | 7:22   | calder-hall-1 |
+| Calder Hall 2 | 3:18   | calder-hall-2 |
+| Trinity       | 4:20   | trinity       |
+| Beloyarsk 1   | 5:12   | beloyarsk-1   |
+| Novaya Zemlya | 6:28   | novaya-zemlya |
+| BR-3          | 4:36   | br-3          |
+| AVR Juelich   | 5:14   | avr-juelich   |

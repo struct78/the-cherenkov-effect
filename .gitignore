@@ -1,6 +1,6 @@
 .DS_Store
 ableton/*/Backup
-touchdesigner/Backup
-touchdesigner/*.*.toe
-touchdesigner/*.mov
-touchdesigner/*.mp4
+touchdesigner/*/Backup
+touchdesigner/*/*.*.toe
+touchdesigner/*/*.mov
+touchdesigner/*/*.mp4

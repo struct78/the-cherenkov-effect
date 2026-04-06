@@ -14,28 +14,22 @@ USBMIDI_Interface midi;
 
 // Radiation
 int geigerCounterInputPins[5] = {
-  2, 3, 4, 5, 6
-};
+    2, 3, 4, 5, 6};
 
 int clicksPerMinute[5] = {
-  0, 0, 0, 0, 0
-};
+    0, 0, 0, 0, 0};
 
 int clicks[5] = {
-  0, 0, 0, 0, 0
-};
+    0, 0, 0, 0, 0};
 
 int totalClicks[5] = {
-  0, 0, 0, 0, 0
-};
+    0, 0, 0, 0, 0};
 
 int prevClicks[5] = {
-  0, 0, 0, 0, 0
-};
+    0, 0, 0, 0, 0};
 
 float microSievertsPerhour[5] = {
-  0.0, 0.0, 0.0, 0.0, 0.0
-};
+    0.0, 0.0, 0.0, 0.0, 0.0};
 
 long clickCountPeriod = 12000;
 long startCountTime;
@@ -67,47 +61,44 @@ int velocity = 0x60;
 /// |8     | 108| 109| 110| 111| 112| 113| 114| 115| 116| 117| 118| 119|
 
 MIDI_Notes::Note bar[4] = {
-  MIDI_Notes::Ab,
-  MIDI_Notes::Eb,
-  MIDI_Notes::F,
-  MIDI_Notes::Db,
+    MIDI_Notes::Ab,
+    MIDI_Notes::Eb,
+    MIDI_Notes::F,
+    MIDI_Notes::Db,
 };
 
 MIDIAddress previousNotes[5] = {};
 
 Channel channels[5] = {
-  { Channel_1 },
-  { Channel_2 },
-  { Channel_3 },
-  { Channel_4 },
-  { Channel_5 },
+    {Channel_1},
+    {Channel_2},
+    {Channel_3},
+    {Channel_4},
+    {Channel_5},
 };
 
 MIDIAddress controlChannels[2][5] = {
-  { { 0xB0, Channel_1 }, { 0xB1, Channel_1 }, { 0xB2, Channel_1 }, { 0xB3, Channel_1 }, { 0xB4, Channel_1 } },
-  { { 0xB0, Channel_2 }, { 0xB1, Channel_2 }, { 0xB2, Channel_2 }, { 0xB3, Channel_2 }, { 0xB4, Channel_2 } }
-};
+    {{0xB0, Channel_1}, {0xB1, Channel_1}, {0xB2, Channel_1}, {0xB3, Channel_1}, {0xB4, Channel_1}},
+    {{0xB0, Channel_2}, {0xB1, Channel_2}, {0xB2, Channel_2}, {0xB3, Channel_2}, {0xB4, Channel_2}}};
 
 uint8_t potPins[2][5] = {
-  { A0, A1, A2, A3, A4 },
-  { A5, A6, A7, A12, A13 },
+    {A0, A1, A2, A3, A4},
+    {A5, A6, A7, A12, A13},
 };
 
 int potValues[2][5] = {
-  { 0, 0, 0, 0, 0 },
-  { 0, 0, 0, 0, 0 },
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0},
 };
 
 int trackPins[1] = {
-  D8
-};
+    D8};
 
 int trackValues[1] = {
-  0
-};
+    0};
 
-
-void setup() {
+void setup()
+{
   Wire.begin();
   // setupDisplay();
   setupSerial();
@@ -117,25 +108,31 @@ void setup() {
 }
 
 // This function opens a serial port that communicates with Processing
-void setupSerial() {
+void setupSerial()
+{
   Serial.begin(9600);
-  while (!Serial) {
+  while (!Serial)
+  {
     ;
   }
 }
 
-void setupTimers() {
+void setupTimers()
+{
   startCountTime = lastCountTime = millis();
 }
 
-void setupPins() {
+void setupPins()
+{
   pinMode(performancePin, INPUT);
 
-  for (int x = 0; x < sizeof(trackPins) / sizeof(int); x++) {
+  for (int x = 0; x < sizeof(trackPins) / sizeof(int); x++)
+  {
     pinMode(trackPins[x], INPUT);
   }
 
-  for (int x = 0; x < sizeof(geigerCounterInputPins) / sizeof(int); x++) {
+  for (int x = 0; x < sizeof(geigerCounterInputPins) / sizeof(int); x++)
+  {
     pinMode(geigerCounterInputPins[x], INPUT);
   }
 
@@ -147,12 +144,15 @@ void setupPins() {
   attachInterrupt(digitalPinToInterrupt(geigerCounterInputPins[4]), onPulse5, RISING);
 }
 
-void setupMidi() {
+void setupMidi()
+{
   Control_Surface.begin();
 }
 
-void setupDisplay() {
-  if (display.begin() == false) {
+void setupDisplay()
+{
+  if (display.begin() == false)
+  {
     Serial.println("Waiting for LCD displays...");
     while (1)
       ;
@@ -161,47 +161,58 @@ void setupDisplay() {
   display.print("Testing things");
 }
 
-void handlePulse(int channel) {
+void handlePulse(int channel)
+{
   // Serial.print("Pulse on: ");
   // Serial.println(channel);
   clicks[channel]++;
   totalClicks[channel]++;
-  
+
   beat++;
 
-  if (beat > sizeof(bar)) {
+  if (beat > sizeof(bar))
+  {
     beat = 0;
   }
 
-  if (totalClicks[channel] % 2 == 0) {
-    sendNoteOn({ bar[beat][octaves[channel]], channels[channel] }, velocity);
-    previousNotes[channel] = { bar[beat][octaves[channel]], channels[channel] };
-  } else {
+  if (totalClicks[channel] % 2 == 0)
+  {
+    sendNoteOn({bar[beat][octaves[channel]], channels[channel]}, velocity);
+    previousNotes[channel] = {bar[beat][octaves[channel]], channels[channel]};
+  }
+  else
+  {
     sendNoteOff(previousNotes[channel], velocity);
   }
 }
 
-void onPulse1() {
+void onPulse1()
+{
   handlePulse(0);
 }
 
-void onPulse2() {
+void onPulse2()
+{
   handlePulse(1);
 }
 
-void onPulse3() {
+void onPulse3()
+{
   handlePulse(2);
 }
 
-void onPulse4() {
+void onPulse4()
+{
   handlePulse(3);
 }
 
-void onPulse5() {
+void onPulse5()
+{
   handlePulse(4);
 }
 
-void loop() {
+void loop()
+{
   computeRadiation();
   readControlSurface();
   readMasterSwitch();
@@ -211,6 +222,7 @@ void loop() {
   isFirstLoop = false;
 }
 
-int mapFloat(float x, float in_min, float in_max, float out_min, float out_max) {
+int mapFloat(float x, float in_min, float in_max, float out_min, float out_max)
+{
   return int((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min);
 }

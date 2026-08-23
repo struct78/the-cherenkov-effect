@@ -2,6 +2,11 @@
 #include <Wire.h>
 #include <Control_Surface.h>
 
+// Make sure we're not silently falling back to MIDI over Serial
+#ifdef CS_USB_MIDI_NOT_SUPPORTED
+#error "Actual MIDI USB backend required"
+#endif
+
 #define MICRO_SIEVERTS_PER_HOUR_MULTIPLIER 0.0057
 #define MIN_OCTAVE 3
 #define MAX_OCTAVE 8
@@ -218,7 +223,7 @@ void loop()
   readMasterSwitch();
   readTrackSwitches();
   readPots();
-  delay(50);
+  delay(5);
   isFirstLoop = false;
 }
 
